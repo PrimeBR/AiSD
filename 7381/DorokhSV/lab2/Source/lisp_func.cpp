@@ -40,16 +40,10 @@ lisp cons (const lisp h, const lisp t) {
     }
     else {
         p = new s_expr;
-        if ( p == NULL) {
-            std::cerr << "Memory not enough\n"; 
-            exit(1); 
-        }
-        else {
-            p->tag = false;
-            p->node.pair.hd = h;
-            p->node.pair.tl = t;
-            return p;
-        }
+        p->tag = false;
+        p->node.pair.hd = h;
+        p->node.pair.tl = t;
+        return p;
     }
 }
 //...........................
@@ -62,14 +56,13 @@ lisp make_atom (const base x) {
 }
 //...........................
 void destroy (lisp s) {
-    if ( s != NULL) {
-        if (!isAtom(s)) {
-            destroy (head (s));
-            destroy (tail(s));
-        }
-        delete s;
-        // s = NULL;
-    };
+    if (!s)
+        return; 
+    if (!isAtom(s)) {
+        destroy (head (s));
+        destroy (tail(s));
+    }
+    delete s;
 }
 //...........................
 base getAtom (const lisp s) {
@@ -82,9 +75,9 @@ base getAtom (const lisp s) {
 
 void read_lisp ( lisp& y, std::istream &list){
         char x;
-        do{
+        do {
             list >> x;
-        }while (x==' ');
+        } while (x == ' ');
         read_s_expr ( x, y, list);
 }
 
@@ -109,7 +102,7 @@ void read_seq ( lisp& y, std::istream &list){
             exit(1);
         }
         else {
-            while ( x==' ' ){
+            while ( x == ' ' ){
                 list >> x;
             }
 
