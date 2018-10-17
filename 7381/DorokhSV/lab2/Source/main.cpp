@@ -4,7 +4,7 @@
 #include <sstream> 
 #include "lisp_func.h"
 
-void print_tabs (int deepCount, lisp s) {
+void print_basic (int deepCount, lisp s) {   // Функция печати состояния иерарх. списка на определённом вызове рекурсии
     for (int i = 0; i < deepCount; i++)
         std::cout << "\t";
     std::cout << "call ";
@@ -12,7 +12,7 @@ void print_tabs (int deepCount, lisp s) {
     std::cout << std::endl;
 }
 
-void print_reverse (int deepCount, lisp s) {
+void print_reverse (int deepCount, lisp s) {    // Функция печати состояния обратного иерарх. списка на определённом вызове рекурсии
     for (int i = 0; i < deepCount-1; i++)
         std::cout << "\t";
     std::cout << "llac ";
@@ -20,8 +20,8 @@ void print_reverse (int deepCount, lisp s) {
     std::cout << std::endl;
 }
 
-lisp reverse( lisp s, lisp z, int count) {
-    print_tabs(count, s);
+lisp reverse( lisp s, lisp z, int count) {  //Рекурсивная функция для создания обратного иерарх. списка
+    print_basic(count, s);
     lisp k;
     if (isNull(s)){
         print_reverse(++count, z);
@@ -29,12 +29,12 @@ lisp reverse( lisp s, lisp z, int count) {
         return z;
     }
     if(isAtom(head(s))){
-        k = reverse(tail(s), cons(head(s), z), ++count);
+        k = reverse(tail(s), cons(head(s), z), ++count);    //Если элемент атом, то вызывается reverse и выполняется запись атома в новый список
         print_reverse(count, z);
         return k;
     }
-    k = reverse(tail(s), cons(reverse(head(s), NULL, count), z), ++count);
-    print_reverse(count, z);
+    k = reverse(tail(s), cons(reverse(head(s), NULL, count), z), ++count);  //Если не атом, то создаётся подсписок z для для записи в него 
+    print_reverse(count, z);                                                //подсписка исходного иерархического списка
     return k;
    
 }
