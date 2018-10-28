@@ -122,5 +122,6 @@ int main()
         std::cout << "Expression in postfix notation: ";
         std::cout << infixToPostfix(s) << std::endl;
     } 
+    std::cout << std::endl;
     return 0; 
 } 
