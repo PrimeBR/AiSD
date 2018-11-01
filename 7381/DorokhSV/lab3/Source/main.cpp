@@ -49,7 +49,7 @@ std::string infixToPostfix(std::string infix) {
     return output; 
 } 
 
-int isValid (std::string infix){
+bool isValid (std::string infix){
     int length = infix.size();
     int signum_count = 0;
     int alpha_count = 0;
@@ -57,13 +57,13 @@ int isValid (std::string infix){
         if(isOperator(infix[i-1]) && infix[i-1] != '(' && infix[i-1] != ')') {
             if(isOperator(infix[i]) && infix[i] != '(' && infix[i-1] != ')') {
                     std::cout << "Two operators in a row!" << std::endl;
-                    return 0;
+                    return false;
             }
         }
         if(isalpha(infix[i-1]) || isdigit(infix[i-1])){
             if(isalpha(infix[i]) || isdigit(infix[i])) {
             std::cout << "Two letters or numbers in a row!" << std::endl;
-            return 0;
+            return false;
         }
         }
         
@@ -76,7 +76,7 @@ int isValid (std::string infix){
             ++signum_count;
             if(!(infix[i] == '-' || infix[i] == '*' || infix[i] == '+' || infix[i] == '/' || infix[i] == '^')) {
                 std::cout << "Operator is not valid!" << std::endl;   
-                return 0; 
+                return false; 
             }
         }
 
@@ -89,11 +89,11 @@ int isValid (std::string infix){
             --bracket_count;
         if(i == length-1 && bracket_count != 0){
             std::cout << "Different number of brackets!" << std::endl;
-            return 0;                                       
+            return false;                                       
         }                                                   
         if(infix[0] == ')') {
             std::cout << "Incorrect input! Expression started with ')'" << std::endl;
-            return 0;
+            return false;
         }
 
     }
@@ -101,13 +101,13 @@ int isValid (std::string infix){
     if(signum_count >= alpha_count ) {
         if(signum_count == alpha_count  && signum_count == 0 && alpha_count == 0){
             std::cout << "Is empty!" << std::endl;
-            return 0;
+            return false;
         }
         std::cout << "Invalid input! The number of operators greater than or equal to number of letters(numbers)" << std::endl;
-        return 0;
+        return false;
     }
 
-    return 1;
+    return true;
 }
 
 int main() 
@@ -117,7 +117,7 @@ int main()
     std::getline(std::cin, s);
     std::cout << s << std::endl;
     s.erase(std::remove(s.begin(), s.end(), ' '), s.end()); //удаляет все пробелы из строки, перемещая их в её конец, а затем стирая
-    int flag = isValid(s);
+    bool flag = isValid(s);
     if(flag){
         std::cout << "Expression in postfix notation: ";
         std::cout << infixToPostfix(s) << std::endl;
