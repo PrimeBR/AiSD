@@ -22,12 +22,12 @@ public:
         delete temp;
     }
  
-    int size_s() const {
+    size_t size_s() const {
         return (size);
     }
  
-    bool empty() {
-        return (!size_s);
+    int empty() {
+        return (!size);
     }
  
     ~Stack() {

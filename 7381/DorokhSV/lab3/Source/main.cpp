@@ -19,33 +19,43 @@ int getPriority(char c) {
   
 std::string infixToPostfix(std::string infix) { 
     infix = '(' + infix + ')'; 
-    int length = infix.size(); 
-    Stack<char> stack; 
+    int length = infix.size();
+    Stack<char> stack;
     std::string output; 
-  
-    for (int i = 0; i < length; i++) { 
-  
+    std::string stackState;
+
+    for (int i = 0; i < length - 1; i++) {
+        
+        std::cout << "The state of the stack at step " << i << ':' << stackState << std::endl;
         if (isalpha(infix[i]) || isdigit(infix[i]))     //Если символ является операндом, добавьте его в вывод
             output += infix[i];  
-        else if (infix[i] == '(')                       //Если символ равен '(', закидываем его в стек 
-            stack.push('('); 
+        else if (infix[i] == '(') {                       //Если символ равен '(', закидываем его в стек 
+            stack.push('(');
+            stackState += stack.top();
+        }
         else if (infix[i] == ')') {                     //Если отсканированный символ является ')', добавляем в вывод и удаляем символы, пока не будет встречен символ '('.
             while (stack.top() != '(') { 
                 output += stack.top(); 
-                stack.pop(); 
+                stack.pop();
+                stackState.erase(stackState.end() - 1); 
             }  
-            stack.pop();  
+            stack.pop();
+            stackState.erase(stackState.end() - 1);  
         }  
         else {              
             if (isOperator(stack.top())) {             //Если оператор, добавляем операторы в вывод в соответствии с приоритетом и удаляем из стека
                 while (getPriority(infix[i]) <= getPriority(stack.top())) { 
                     output += stack.top(); 
-                    stack.pop(); 
+                    stack.pop();
+                    stackState.erase(stackState.end() - 1); 
                 }                                        
-                stack.push(infix[i]); 
+                stack.push(infix[i]);
+                stackState += stack.top(); 
             }
         }
-    } 
+    }
+
+    std::cout << "Expression in postfix notation: ";    
     return output; 
 } 
 
@@ -119,7 +129,6 @@ int main()
     s.erase(std::remove(s.begin(), s.end(), ' '), s.end()); //удаляет все пробелы из строки, перемещая их в её конец, а затем стирая
     bool flag = isValid(s);
     if(flag){
-        std::cout << "Expression in postfix notation: ";
         std::cout << infixToPostfix(s) << std::endl;
     } 
     std::cout << std::endl;
