@@ -8,7 +8,7 @@ int main() {
     std::cout << "Enter leafs for tree:" << std::endl;
     getline(std::cin, list);
     std::stringstream ss;
-    for(size_t i = 0; i < list.size(); i++)
+    for(size_t i = 0; i < list.size(); i++)     //Проверка элемента на принадлежность к целому типу
         if(isalpha(list[i]))
             std::cout << "Error! " << list[i] << " - was not digit! Stop building the tree..." << std::endl;
     ss.str(list);
@@ -20,7 +20,7 @@ int main() {
     tree.display();
     std::cout << "Enter an item to search:" << std::endl;
     std::cin >> value;
-    if(std::cin.fail()) {
+    if(std::cin.fail()) {                       //Проверка символа для поиска на принадлежность целому типу
         std::cout << "Error! Items for search can only be of one type(digits)!" << std::endl;
         std::cout << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
         return 0;
