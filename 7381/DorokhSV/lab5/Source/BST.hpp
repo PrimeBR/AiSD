@@ -14,7 +14,7 @@ class BST {
 
     Node* root;
 
-    Node* makeEmpty(Node* t) {              //Функция удаления дерева
+    Node* makeEmpty(Node* t) {              //Метод удаления дерева
         if(!t)
             return 0;
         makeEmpty(t->left);
@@ -23,7 +23,7 @@ class BST {
         return 0;
     }
 
-    Node* insert(Type x, Node* t) {         //Функция вставки элемента в дерево
+    Node* insert(Type x, Node* t) {         //Метод вставки элемента в дерево
         if(!t) {
             t = new Node;
             t->data = x;
@@ -36,7 +36,7 @@ class BST {
         return t;
     }
 
-    Node* findMin(Node *t) {            //Функция нахождения минимального элемента в дереве
+    Node* findMin(Node *t) {            //Метод нахождения минимального элемента в дереве
         if(!t)
             return 0;
         else if(!t->left)
@@ -44,7 +44,7 @@ class BST {
         else return findMin(t->left);
     }
 
-    Node* findMax(Node* t) {            //Функция нахождения максимального элемента в дереве
+    Node* findMax(Node* t) {            //Метод нахождения максимального элемента в дереве
         if(!t)
             return 0;
         else if(!t->right)
@@ -52,7 +52,7 @@ class BST {
         else return findMax(t->right);
     }
 
-    Node* remove(Type x, Node* t) {     //Функция удаления элемента в дереве
+    Node* remove(Type x, Node* t) {     //Метод удаления элемента в дереве
         Node* temp;
         if(!t)
             return 0;
@@ -76,12 +76,12 @@ class BST {
         return t;
     }
 
-    void printSpaces(size_t deep) {         //Функция печати пробелов в соответствии с глубиной дерева
+    void printSpaces(size_t deep) {         //Метод печати пробелов в соответствии с глубиной дерева
         for(size_t i = 0; i < deep; i++) 
             std::cout << ' ';
     }
 
-    void inorder(Node* t, size_t lvl) {     //Функция выводящая значение текущего элемента в дереве
+    void inorder(Node* t, size_t lvl) {     //Метод выводящая значение текущего элемента в дереве
         if(!t) {
             printSpaces(lvl);
             std::cout << "#" << std::endl;
@@ -98,7 +98,7 @@ class BST {
         inorder(t->left, lvl+4);
     }
 
-    Node* find(Type x, Node*t) {        //Функция поиска элемента в дереве
+    Node* find(Type x, Node* t) {        //Метод поиска элемента в дереве
         if(!t)
             return 0;
         else if(x < t->data) {
@@ -115,11 +115,11 @@ class BST {
     }
 
     public:
-        BST() {
+        BST() {                         
             root = NULL;
         }
 
-        ~BST() {
+        ~BST() {                        
             root = makeEmpty(root);
         }
 
@@ -131,7 +131,7 @@ class BST {
             root = remove(x, root);
         }
 
-        void display() {        //Функция отображения дерева
+        void display() {        //Метод отображения дерева
             if(!root) {
                 std::cout << "BST is empty!" << std::endl;
                 return;
@@ -140,7 +140,7 @@ class BST {
             std::cout << std::endl;
         }
 
-        int search (Type x) {   //Функция поиска элемента в дереве
+        int search (Type x) {   //Метод поиска элемента в дереве
             Node* temp = find(x, root);
             if(temp) {
                 std::cout << "Element was found!" << std::endl;
